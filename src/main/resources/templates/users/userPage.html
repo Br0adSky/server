@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <title>Main Page</title>
+    <link rel="stylesheet" type="text/css" href="/default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/default.css" />
 </head>
 <body>
 <div>
@@ -35,22 +37,19 @@
         <button type="reset">Очистить введенные данные</button>
         <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
     </form>
-
+    <div>Работа с таблицей</div>
     <form method="get" action="/users/userPage">
-        <div>Отобразить все заявки</div>
-        <button type="submit">Отобразить</button>
+        <button type="submit">Отобразить все заявки</button>
     </form>
     <form method="post" action="/users/userPage/studVotes">
-        <div>Отобразить все голосования</div>
-        <button type="submit">Отобразить</button>
+        <button type="submit">Отобразить все голосования</button>
         <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
     </form>
     <form method="post" action="/users/userPage/allBidsByName">
-        <div>Все мои заявки</div>
-        <button type="submit">Отобразить</button>
+        <button type="submit">Все мои заявки</button>
         <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
-        <div th:text="${message}"></div>
         <table>
+            <caption><div th:text="${message}"></div></caption>
             <tr>
                 <th>Имя Студента</th>
                 <th>Фамилия Студента</th>
@@ -66,7 +65,7 @@
             <tr th:each="bid: ${bids}">
                 <td th:text="${bid.author.getName()}"></td>
                 <td th:text="${bid.author.getSurname()}"></td>
-                <td><a th:href="@{/comments/mainPage/{id}(id=${bid.id})}" th:text="${bid.text}"></a></td>
+                <td><a th:href="@{/comments/commentPage/{id}(id=${bid.id})}" th:text="${bid.text}"></a></td>
                 <td th:text="${bid.status}"></td>
                 <td><span th:if="${bid.address.isBlank()}">Неизвестно</span>
                     <span th:unless="${bid.address.isBlank()}"><span th:text="${bid.address}"></span></span>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bid List</title>
-
+    <link rel="stylesheet" type="text/css" href="/default.css" />
 </head>
 <body>
 <div>
@@ -29,20 +29,18 @@
         <button type="submit">Найти</button>
         <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
     </form>
-    <br>
+    <div>Работа с таблицей</div>
     <form method="post" action="/bids/bidList/bidDone">
         <button type="submit">Отобразить заявки, ожидающие подтверждения выполнения</button>
         <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
     </form>
-    <br>
     <form method="post" action="/bids/bidList/toUserPage">
         <button type="submit">На главную</button>
         <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
     </form>
-    <td th:text="${message}"></td>
     <form>
-        <div>Список заявок пользователей</div>
         <table>
+            <caption><div th:text="${message}"></div></caption>
             <tr>
                 <th>Имя</th>
                 <th>Фамилия</th>
@@ -57,7 +55,7 @@
             <tr th:each="bid: ${bids}">
                 <td th:text="${bid.author.name}">Имя пользователя</td>
                 <td th:text="${bid.author.surname}"></td>
-                <td><a th:href="@{/comments/mainPage/{id}(id=${bid.id})}" th:text="${bid.text}"></a></td>
+                <td><a th:href="@{/comments/commentPage/{id}(id=${bid.id})}" th:text="${bid.text}"></a></td>
                 <td th:text="${bid.status}"></td>
                 <td th:text="${bid.address}"></td>
                 <td th:text="${bid.priseFrom}"></td>

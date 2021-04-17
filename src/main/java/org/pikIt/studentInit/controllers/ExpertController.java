@@ -46,7 +46,7 @@ public class ExpertController {
 
     @PostMapping("users/expertPage/replaceBids")
     public String replaceBids() {
-        return "redirect:users/expertPage";
+        return "redirect:/users/expertPage";
     }
 
     @PostMapping("users/expertPage/filterText")

@@ -3,6 +3,7 @@
 <head>
     <title>Add new Bid</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/default.css" />
 </head>
 <body>
 <form action="#" method="post" th:action="@{/users/userPage/addNewBid}" enctype="multipart/form-data" th:object="${bid}">
@@ -10,7 +11,7 @@
         <tr>
             <td>Текст:</td>
             <td>
-                <input type="text" th:field="*{text}" placeholder="Введите текст заявки">
+                <textarea th:field="*{text}" placeholder="Введите текст заявки"></textarea>
             <td th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></td>
         </tr>
         <tr>

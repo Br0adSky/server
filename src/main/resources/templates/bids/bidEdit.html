@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bid editor</title>
+    <link rel="stylesheet" type="text/css" href="/default.css" />
 </head>
 <body>
 <td>
@@ -11,7 +12,7 @@
             <tr>
                 <td>Текст:</td>
                 <td>
-                    <input type="text" th:field="*{text}" th:value="*{text}" placeholder="Введите текст заявки">
+                    <textarea th:field="*{text}" th:value="*{text}" placeholder="Введите текст заявки"></textarea>
                 <td th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></td>
             </tr>
             <tr>

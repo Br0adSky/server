@@ -24,20 +24,20 @@ public class CommentController {
         this.commentsService = commentsService;
     }
 
-    @GetMapping("/mainPage/{bid}")
+    @GetMapping("/commentPage/{bid}")
     public String addNewComment(@AuthenticationPrincipal User user, Model model,
                                 @PathVariable Bid bid) {
         return commentsService.createNewComment(model, bid, user);
     }
 
-    @PostMapping("/mainPage/{bid}")
+    @PostMapping("/commentPage/{bid}")
     public String send(@AuthenticationPrincipal User user,
                        @Valid Comment newComment, BindingResult bindingResult,
                        Model model, @PathVariable Bid bid) {
         return commentsService.send(newComment,bindingResult,model, user, bid);
     }
 
-    @PostMapping("/mainPage/back")
+    @PostMapping("/commentPage/back")
     public String back(@AuthenticationPrincipal User user) {
         if (user.getRoles().contains(Role.MODERATOR))
             return "redirect:/bids/bidList";
@@ -45,9 +45,9 @@ public class CommentController {
             return "redirect:/users/userPage";
     }
 
-    @GetMapping("/mainPage/delete/{comment}")
+    @GetMapping("/commentPage/delete/{comment}")
     public String delete(@PathVariable Comment comment){
         commentsService.delete(comment);
-        return "redirect:/comments/mainPage/" + comment.getBid().getId();
+        return "redirect:/comments/commentPage/" + comment.getBid().getId();
     }
 }

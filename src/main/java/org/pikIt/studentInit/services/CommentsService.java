@@ -25,17 +25,17 @@ public class CommentsService {
         Comment comment = new Comment();
         comment.setBid(bid);
         model.addAttribute("bid",bid);
-        return getAttributes(model, user, comment);
+        return getAttributes(model, user, comment, bid);
     }
 
-    private String getAttributes(Model model, User user, Comment comment) {
+    private String getAttributes(Model model, User user, Comment comment, Bid bid) {
         model.addAttribute("newComment", comment);
-        model.addAttribute("comments", commentsRepository.getCommentSortedByMessageDate());
+        model.addAttribute("comments", commentsRepository.getCommentSortedByMessageDate(bid));
         model.addAttribute("user", user);
         model.addAttribute("userRoles", user.getRoles());
         model.addAttribute("super", Role.SUPER_USER);
         model.addAttribute("moder", Role.MODERATOR);
-        return "comments/mainPage";
+        return "comments/commentPage";
     }
 
     public void delete(Comment comment){
@@ -44,13 +44,13 @@ public class CommentsService {
 
     public String send(Comment newComment, BindingResult bindingResult, Model model, User user, Bid bid){
         if (bindingResult.hasErrors()) {
-            return getAttributes(model, user, newComment);
+            return getAttributes(model, user, newComment, bid);
         } else {
             newComment.setBid(bid);
             newComment.setUser(user);
             newComment.setMessageDate(new Date());
             commentsRepository.save(newComment);
-            return "redirect:/comments/mainPage/" + bid.getId();
+            return "redirect:/comments/commentPage/" + bid.getId();
         }
     }
 }

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <title>Main Page</title>
+    <link rel="stylesheet" type="text/css" href="/default.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
@@ -14,21 +15,19 @@
     <button type="reset">Очистить введенные данные</button>
     <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
 </form>
+<div>Работа с таблицей</div>
 <form method="post" action="/users/expertPage/replaceBids">
-    <div>Отобразить все заявки</div>
-    <button type="submit">Отобразить</button>
+    <button type="submit">Отобразить все заявки</button>
     <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
 </form>
 <form method="get" action="/users/userPage">
-    <div>Вернуться на главную</div>
-    <button type="submit">Вернуться</button>
+    <button type="submit">Вернуться на главную</button>
 </form>
 <form method="post" action="/users/expertPage/allBidsByName">
-    <div>Все мои заявки</div>
-    <button type="submit">Отобразить</button>
+    <button type="submit">Все мои заявки</button>
     <input type="hidden" th:value="${_csrf.token}" th:name="_csrf"/>
-    <div th:text="${message}"></div>
     <table>
+        <caption><div th:text="${message}"></div></caption>
         <tr>
             <th>Имя Студента</th>
             <th>Фамилия Студента</th>
@@ -43,7 +42,7 @@
         <tr th:each="bid: ${bids}">
             <td th:text="${bid.author.getName()}"></td>
             <td th:text="${bid.author.getSurname()}"></td>
-            <td><a th:href="@{/comments/mainPage/{id}(id=${bid.id})}" th:text="${bid.text}"></a></td>
+            <td><a th:href="@{/comments/commentPage/{id}(id=${bid.id})}" th:text="${bid.text}"></a></td>
             <td><span th:if="${bid.address.isBlank()}">Неизвестно</span>
                 <span th:unless="${bid.address.isBlank()}"><span th:text="${bid.address}"></span></span>
             </td>
@@ -52,9 +51,6 @@
             </td>
             <td><span th:if="${bid.getPriseTo()==null}">Неизвестно</span>
                 <span th:unless="${bid.getPriseTo()==null}"><span th:text="${bid.getPriseTo()}"></span></span>
-            </td>
-            <td><span th:if="${bid.author == user}"><a th:href="@{userPage/{id}(id=${bid.id})}">Редактировать</a></span>
-                <span th:unless="${bid.author == user}">Редактировать можно только свои заявки</span>
             </td>
             <td><a th:href="@{/votes/voting/{id}(id=${bid.id})}">Голосовать</a></td>
             <td> <a th:href="@{/users/userPage/getFile/{fileName}(fileName = ${bid.fileName})}" th:text="${bid.fileName}"></a></td>
