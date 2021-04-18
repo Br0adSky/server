@@ -45,7 +45,7 @@ public class ModeratorController {
                             Model model, @AuthenticationPrincipal User user) {
         return bidService.delete(bid, model, user);
     }
-
+    @PreAuthorize("hasAnyAuthority('USER', 'EXPERT')")
     @GetMapping("{bid}")
     public String bidEditForm(@PathVariable Bid bid, Model model,
                               @AuthenticationPrincipal User user) {
