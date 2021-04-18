@@ -2,7 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <title>Регистрация</title>
-    <link rel="stylesheet" type="text/css" href="/default.css" />
+    <style>
+        input[type=text], input[type=email], input[type=password] {
+            background-color: white;
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        input[type=text]:focus {
+            background-color: lightblue;
+        }
+        button[type=button], button[type=submit], button[type=reset], input[type=submit], input[type=reset] {
+            background-color: #F5D7BF;
+            border: none;
+            color: #656665;
+            padding: 12px 20px;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div th:text="${message}"></div>
