@@ -37,12 +37,12 @@ public class VotingService {
             vote.setVotesFor(1);
             votingRepository.save(vote);
             if (bid.getStatus() == BidStatus.Voting_stud) {
-                if (votingRepository.sumVotesFor() != null && votingRepository.sumVotesFor().equals(VOTES_FOR_STUDENT)) {
+                if (votingRepository.sumVotesFor(bid) != null && votingRepository.sumVotesFor(bid).equals(VOTES_FOR_STUDENT)) {
                     bid.setStatus(status);
                     bidRepository.save(bid);
                 }
             } else {
-                if (votingRepository.sumVotesFor() != null && votingRepository.sumVotesFor().equals(VOTES_FOR_EXPERT)) {
+                if (votingRepository.sumVotesFor(bid) != null && votingRepository.sumVotesFor(bid).equals(VOTES_FOR_EXPERT)) {
                     bid.setStatus(status);
                     bidRepository.save(bid);
                 }
@@ -58,14 +58,14 @@ public class VotingService {
             vote.setVotesAgainst(1);
             votingRepository.save(vote);
             if (bid.getStatus() == BidStatus.Voting_stud) {
-                if (votingRepository.sumVotesAgainst() != null && votingRepository.sumVotesAgainst() >= VOTES_AGAINST_STUDENT) {
+                if (votingRepository.sumVotesAgainst(bid) != null && votingRepository.sumVotesAgainst(bid) >= VOTES_AGAINST_STUDENT) {
                     for (Vote v : votingRepository.findVoteByBid(bid)) {
                         votingRepository.delete(v);
                     }
                     bidRepository.delete(bid);
                 }
             } else {
-                if (votingRepository.sumVotesAgainst() != null && votingRepository.sumVotesAgainst() >= VOTES_AGAINST_EXPERT) {
+                if (votingRepository.sumVotesAgainst(bid) != null && votingRepository.sumVotesAgainst(bid) >= VOTES_AGAINST_EXPERT) {
                     for (Vote v : votingRepository.findVoteByBid(bid)) {
                         votingRepository.delete(v);
                     }
