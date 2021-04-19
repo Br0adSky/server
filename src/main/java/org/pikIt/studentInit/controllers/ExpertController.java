@@ -38,7 +38,7 @@ public class ExpertController {
     }
 
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'EXPERT','MODERATOR', 'SUPER_USER')")
     @GetMapping("votes/voting/{bid}")
     public String voting(Model model, @PathVariable Bid bid, @AuthenticationPrincipal User user) {
         return votingService.checkRoleInVoting(bid, user, model);
