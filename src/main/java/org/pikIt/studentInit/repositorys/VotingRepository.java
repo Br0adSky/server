@@ -12,10 +12,10 @@ import java.util.List;
 @Repository
 public interface VotingRepository extends JpaRepository<Vote, Integer> {
 
-    @Query("select sum(votesFor) from Vote where Vote.bid = :bid")
+    @Query("select sum(v.votesFor) from Vote v where v.bid = :bid")
     Integer sumVotesFor(Bid bid);
 
-    @Query("select sum(votesFor) from Vote where Vote.bid = :bid")
+    @Query("select sum(v.votesAgainst) from Vote v where v.bid = :bid")
     Integer sumVotesAgainst(Bid bid);
 
     //    @Query("select v from Vote v where v.bid = :bid and v.user = :user")
