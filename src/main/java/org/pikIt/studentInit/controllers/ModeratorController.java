@@ -39,20 +39,20 @@ public class ModeratorController {
         return "redirect:/users/userPage";
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'EXPERT', 'MODERATOR', 'SUPER_USER')")
     @PostMapping("/delete")
     public String deleteBid(@RequestParam Bid bid,
                             Model model, @AuthenticationPrincipal User user) {
         return bidService.delete(bid, model, user);
     }
-    @PreAuthorize("hasAnyAuthority('USER', 'EXPERT')")
+    @PreAuthorize("hasAnyAuthority('USER', 'EXPERT', 'MODERATOR', 'SUPER_USER')")
     @GetMapping("{bid}")
     public String bidEditForm(@PathVariable Bid bid, Model model,
                               @AuthenticationPrincipal User user) {
         return bidService.editForm(model, bid, user);
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('USER', 'EXPERT', 'MODERATOR', 'SUPER_USER')")
     @PostMapping()
     public String bidSave(@Valid Bid bid, BindingResult bindingResult, Model model,
                           @RequestParam(required = false, value = "file") MultipartFile file,
