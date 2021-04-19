@@ -36,7 +36,6 @@
             <th>Адрес</th>
             <th>Цена от</th>
             <th>Цена до</th>
-            <th>Редактирование</th>
             <th>Голосование</th>
             <th>Прикрепленные файлы</th>
         </tr>
@@ -52,9 +51,6 @@
             </td>
             <td><span th:if="${bid.getPriseTo()==null}">Неизвестно</span>
                 <span th:unless="${bid.getPriseTo()==null}"><span th:text="${bid.getPriseTo()}"></span></span>
-            </td>
-            <td><span th:if="${bid.author == user}"><a th:href="@{userPage/{id}(id=${bid.id})}">Редактировать</a></span>
-                <span th:unless="${bid.author == user}">Редактировать можно только свои заявки</span>
             </td>
             <td><a th:href="@{/votes/voting/{id}(id=${bid.id})}">Голосовать</a></td>
             <td> <a th:href="@{/users/userPage/getFile/{fileName}(fileName = ${bid.fileName})}" th:text="${bid.fileName}"></a></td>
